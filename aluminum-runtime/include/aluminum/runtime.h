@@ -10,8 +10,8 @@
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
  *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -25,8 +25,9 @@
 /*
  * Public interface of the Aluminum runtime.
  *
- * Code produced by the compiler calls into these functions. Every exported symbol uses the alm_ prefix so it
- * cannot clash with symbols from other native libraries linked into the same program.
+ * Code produced by the compiler calls into these functions. Every exported
+ * symbol uses the alm_ prefix so it cannot clash with symbols from other native
+ * libraries linked into the same program.
  */
 #ifndef ALUMINUM_RUNTIME_H
 #define ALUMINUM_RUNTIME_H
@@ -43,12 +44,14 @@ extern "C" {
 int alm_init(void);
 
 /*
- * Tears the runtime down. Calling it when the runtime was never started does nothing.
+ * Tears the runtime down. Calling it when the runtime was never started does
+ * nothing.
  */
 void alm_shutdown(void);
 
 /*
- * Returns 1 if alm_init() has succeeded and alm_shutdown() has not been called since, or 0 otherwise.
+ * Returns 1 if alm_init() has succeeded and alm_shutdown() has not been called
+ * since, or 0 otherwise.
  */
 int alm_is_running(void);
 
