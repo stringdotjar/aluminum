@@ -1,7 +1,6 @@
 # Overrides for the C runtime. Settings not listed here are inherited from the root .editorconfig.
 
 [*.{c,h}]
-# Matches the LLVM style used by .clang-format.
 max_line_length = 80
 
 [{CMakeLists.txt,*.cmake}]

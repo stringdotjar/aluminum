@@ -1,3 +1,1 @@
-# Formatting for the C runtime. Follows the LLVM style with no overrides, so any clang-format version produces the
-# same result and contributors can rely on the official LLVM documentation.
 BasedOnStyle: LLVM

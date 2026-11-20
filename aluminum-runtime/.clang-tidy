@@ -1,7 +1,3 @@
-# Static analysis for the C runtime. The enabled groups cover the clang static analyzer, common bug patterns, the CERT
-# C Coding Standard, portability, and readability. The disabled checks are noisy for low-level runtime code. The
-# unsafe buffer check asks for the optional C11 Annex K functions (such as fprintf_s()), which glibc and Apple's C
-# library do not provide.
 Checks: >
   -*,
   bugprone-*,
