@@ -1,0 +1,21 @@
+# Static analysis for the C runtime. The enabled groups cover the clang static analyzer, common bug patterns, the CERT
+# C Coding Standard, portability, and readability. The disabled checks are noisy for low-level runtime code. The
+# unsafe buffer check asks for the optional C11 Annex K functions (such as fprintf_s()), which glibc and Apple's C
+# library do not provide.
+Checks: >
+  -*,
+  bugprone-*,
+  cert-*,
+  clang-analyzer-*,
+  misc-*,
+  performance-*,
+  portability-*,
+  readability-*,
+  -bugprone-easily-swappable-parameters,
+  -clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling,
+  -misc-include-cleaner,
+  -readability-identifier-length,
+  -readability-magic-numbers
+WarningsAsErrors: '*'
+HeaderFilterRegex: '.*/aluminum-runtime/(include|src)/.*'
+FormatStyle: file
