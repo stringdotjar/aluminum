@@ -1,0 +1,46 @@
+name: Build
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  compiler:
+    name: Compiler (Java)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 25
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Build and test
+        run: ./gradlew build --no-daemon
+
+  runtime:
+    name: Runtime (C, ${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, ubuntu-24.04-arm, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure
+        run: cmake -S aluminum-runtime -B aluminum-runtime/build -DCMAKE_C_COMPILER=clang -DALUMINUM_SANITIZE=ON
+
+      - name: Build
+        run: cmake --build aluminum-runtime/build
+
+      - name: Test
+        run: ctest --test-dir aluminum-runtime/build --output-on-failure
