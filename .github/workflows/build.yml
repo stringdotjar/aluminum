@@ -44,3 +44,25 @@ jobs:
 
       - name: Test
         run: ctest --test-dir aluminum-runtime/build --output-on-failure
+
+  runtime-lint:
+    name: Runtime lint (clang-format, clang-tidy)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: aluminum-runtime
+    steps:
+      - uses: actions/checkout@v4
+
+      # Pinned so formatting and analysis results do not change when the runner image updates.
+      - name: Install clang tools
+        run: pip install clang-format==23.1.5 clang-tidy==23.1.4
+
+      - name: Check formatting
+        run: clang-format --dry-run --Werror include/aluminum/*.h src/*.c tests/*.c
+
+      - name: Configure
+        run: cmake -S . -B build -DCMAKE_C_COMPILER=clang
+
+      - name: Static analysis
+        run: clang-tidy -p build src/*.c tests/*.c
