@@ -76,14 +76,7 @@ When explaining code or introducing patterns:
 
 ### C (runtime)
 
-- Target **C17** and stay portable across clang and gcc.
-- Every exported symbol uses the `alm_` prefix; everything else is `static`.
-- Warnings fail the build (`-Wall -Wextra -Wpedantic -Werror`).
-- Code must stay clean under AddressSanitizer and UndefinedBehaviorSanitizer (`-DALUMINUM_SANITIZE=ON`).
-- Never rely on x86 memory ordering. Code shared between threads must use explicit atomics or barriers, because
-  arm64 reorders memory far more aggressively.
-- Object layout facts (header size, field offsets, and so on) must come from one source of truth shared with the
-  compiler, never be written by hand on both sides.
+The runtime has its own rules in `aluminum-runtime/AGENTS.md`, which add to this file.
 
 ---
 
@@ -115,13 +108,7 @@ Documentation should read like a **beginner-friendly handbook**, not an expert-o
 Before finishing a coding task, run:
 
 1. Java build and tests: `./gradlew build`
-2. Runtime build and tests:
-
-   ```sh
-   cmake -S aluminum-runtime -B aluminum-runtime/build -DALUMINUM_SANITIZE=ON
-   cmake --build aluminum-runtime/build
-   ctest --test-dir aluminum-runtime/build --output-on-failure
-   ```
+2. If the runtime changed, the steps listed in `aluminum-runtime/AGENTS.md`.
 
 ---
 
