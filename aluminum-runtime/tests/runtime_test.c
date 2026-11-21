@@ -37,9 +37,9 @@
 
 int main(void) {
   CHECK(!alm_is_running());
-  CHECK(alm_init() == 0);
+  CHECK(alm_init(NULL) == 0);
   CHECK(alm_is_running());
-  CHECK(alm_init() == 0);
+  CHECK(alm_init(NULL) == 0);
   alm_shutdown();
   CHECK(!alm_is_running());
   alm_shutdown();

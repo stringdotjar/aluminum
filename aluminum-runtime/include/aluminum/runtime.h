@@ -32,20 +32,35 @@
 #ifndef ALUMINUM_RUNTIME_H
 #define ALUMINUM_RUNTIME_H
 
+#include <stddef.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
+/* Settings for alm_init(). Zero in any field means "use the default". */
+typedef struct alm_config {
+  /*
+   * Largest number of bytes the heap may take from the system. Once it is
+   * reached and a collection frees nothing, allocation returns NULL. Zero
+   * means no limit other than what the system can give.
+   */
+  size_t max_heap;
+} alm_config;
+
 /*
  * Sets up the runtime. Must be called once, before any other alm_ function.
  *
+ * config may be NULL to use the defaults. Calling this while the runtime is
+ * already running does nothing and ignores config.
+ *
  * Returns 0 on success, or a nonzero value if the runtime could not start.
  */
-int alm_init(void);
+int alm_init(const alm_config *config);
 
 /*
- * Tears the runtime down. Calling it when the runtime was never started does
- * nothing.
+ * Tears the runtime down and frees every object on the heap. Calling it when
+ * the runtime was never started does nothing.
  */
 void alm_shutdown(void);
 

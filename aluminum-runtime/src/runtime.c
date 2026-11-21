@@ -23,16 +23,27 @@
  */
 #include "aluminum/runtime.h"
 
+#include "heap.h"
+
 static int running = 0;
 
-int alm_init(void) {
+int alm_init(const alm_config *config) {
   if (running) {
     return 0;
+  }
+  if (alm_heap_init(config) != 0) {
+    return 1;
   }
   running = 1;
   return 0;
 }
 
-void alm_shutdown(void) { running = 0; }
+void alm_shutdown(void) {
+  if (!running) {
+    return;
+  }
+  alm_heap_shutdown();
+  running = 0;
+}
 
 int alm_is_running(void) { return running; }

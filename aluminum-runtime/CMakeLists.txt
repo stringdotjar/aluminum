@@ -13,7 +13,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 # bugs in the runtime and GC.
 option(ALUMINUM_SANITIZE "Build with ASan and UBSan" OFF)
 
-add_library(aluminum_runtime STATIC src/runtime.c)
+add_library(aluminum_runtime STATIC src/gc.c src/runtime.c)
 target_include_directories(aluminum_runtime PUBLIC include)
 target_compile_options(aluminum_runtime PRIVATE
   -Wall -Wextra -Wpedantic -Werror)
