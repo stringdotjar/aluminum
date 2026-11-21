@@ -33,4 +33,10 @@ if(BUILD_TESTING)
   target_compile_options(runtime_test PRIVATE
     -Wall -Wextra -Wpedantic -Werror)
   add_test(NAME runtime_test COMMAND runtime_test)
+
+  add_executable(gc_test tests/gc_test.c)
+  target_link_libraries(gc_test PRIVATE aluminum_runtime)
+  target_compile_options(gc_test PRIVATE
+    -Wall -Wextra -Wpedantic -Werror)
+  add_test(NAME gc_test COMMAND gc_test)
 endif()
